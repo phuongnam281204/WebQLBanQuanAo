@@ -1,0 +1,39 @@
+﻿@model MvcBookStore.Models.Loai
+
+@{
+    ViewBag.Title = "XoaLoai";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>XoaLoai</h2>
+
+<h3 style="color:red">Không thể khôi phục sau khi xóa!Xác nhận xóa?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+
+        <dt>
+            Loại quần áo:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenLoai)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.MaLoai)
+        </dd>
+
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Sửa", "Suasach", new { id = Model.MaLoai }) |
+            @Html.ActionLink("Quay lại", "Index")
+        </div>
+    }
+</div>
