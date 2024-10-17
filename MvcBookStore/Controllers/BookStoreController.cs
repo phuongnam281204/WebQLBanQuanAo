@@ -43,6 +43,22 @@ namespace MvcBookStore.Controllers
             var nhaxuatban = from nxb in data.NHAXUATBANs select nxb;
             return PartialView(nhaxuatban);
         }
+        //tim kiem
+        public ActionResult Search(string searchString, int? page)
+        {
+            var productList = data.SACHes.OrderByDescending(x => x.Tensach);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                productList = (IOrderedQueryable<SACH>)productList.Where(x => x.Tensach.Contains(searchString));
+            }
+
+            int pageSize = 10; 
+            int pageNumber = (page ?? 1); 
+
+            return View("Index", productList.ToPagedList(pageNumber, pageSize));
+        }
+
         //Chia san pham theo chu de
         public ActionResult SPTheoloai(int id,int ? page)
         {

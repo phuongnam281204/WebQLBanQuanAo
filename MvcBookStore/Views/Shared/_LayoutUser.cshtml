@@ -89,14 +89,15 @@
                         <!--/ End Logo -->
                         <!-- Search Form -->
                         <div class="search-top">
-                            <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
+             
                             <!-- Search Form -->
                             <div class="search-top">
-                                <form class="search-form">
-                                    <input type="text" placeholder="Search here..." name="search">
-                                    <button value="search" type="submit"><i class="ti-search"></i></button>
+                                <form class="search-form" action="/BookStore/Search" method="get">
+                                    <input type="text" placeholder="Tìm kiếm sách..." name="searchString">
+                                    <button type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
                                 </form>
                             </div>
+                          
                             <!--/ End Search Form -->
                         </div>
                         <!--/ End Search Form -->
@@ -111,9 +112,9 @@
                                     <option>Tên quần áo</option>
                                     <option>Loại quần áo</option>
                                 </select>
-                                <form>
-                                    <input name="search" placeholder="Nhập thông tin tìm kiếm....." type="search">
-                                    <button class="btnn"><i class="ti-search"></i></button>
+                                <form  action="/BookStore/Search" method="get" >
+                                    <input name="searchString" placeholder="Nhập thông tin tìm kiếm....." type="text">
+                                    <button class="btnn" type="submit"><i class="ti-search"></i></button>
                                 </form>
                             </div>
                         </div>
