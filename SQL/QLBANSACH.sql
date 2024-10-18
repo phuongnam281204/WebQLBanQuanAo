@@ -126,14 +126,14 @@ INSERT INTO NHAXUATBAN VALUES
 (N'NXB Thế Giới',N'','')
 
 INSERT INTO LOAI VALUES 
-(N'Tiểu sử - Hồi ký'),
-(N'Kinh tế'),
-(N'Tâm lý - Kỹ năng sống'),
-(N'Lịch sử - Địa lý - Tôn giáo'),
-(N'Giáo trình'),
-(N'Tiểu thuyết'),
-(N'Manga-Comic'),
-(N'Sách thiếu nhi')
+(N'EVISU'),
+(N'ADIDAS'),
+(N'LUIVUITUOI'),
+(N'YAME'),
+(N'BOBUI'),
+(N'UMBRELA'),
+(N'NIKE'),
+(N'BAODOI')
 
 INSERT INTO TACGIA VALUES
 (N'Jack Thorne',N'', N'',''),
