@@ -5,6 +5,7 @@
     ViewBag.Title = "Quản lí đơn hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<!-- TRANG QUẢN LÝ ĐƠN HÀNG -->
 <style>
     tr, td, th {
         text-align: center;
@@ -59,43 +60,43 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.MaDonHang)
-    </td>
-    <td class="text-center">
-        @{if (item.Dathanhtoan == true)
-            {
-                <font color='green'>Đã thanh toán</font>
-            }
-            else
-            {
-                <font color='red'>Chưa thanh toán</font>
-            }
-        }
-    </td>
-    <td class="text-center">
-        @{if (item.Tinhtranggiaohang == true)
-            {
-                <font color='green'>Đã giao hàng</font>
-            }
-            else
-            {
-                <font color='red'>Chưa giao hàng</font>
-            }
-        }
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Ngaydat)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Ngaygiao)
-    </td>
-    <td>
-        @Html.ActionLink(item.KHACHHANG.Taikhoan, "Chitietnguoidung", new { id = item.MaKH })
-    </td>
-    
-</tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaDonHang)
+            </td>
+            <td class="text-center">
+                @{if (item.Dathanhtoan == true)
+                    {
+                        <font color='green'>Đã thanh toán</font>
+                    }
+                    else
+                    {
+                        <font color='red'>Chưa thanh toán</font>
+                    }
+                }
+            </td>
+            <td class="text-center">
+                @{if (item.Tinhtranggiaohang == true)
+                    {
+                        <font color='green'>Đã giao hàng</font>
+                    }
+                    else
+                    {
+                        <font color='red'>Chưa giao hàng</font>
+                    }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ngaydat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ngaygiao)
+            </td>
+            <td>
+                @Html.ActionLink(item.KHACHHANG.Taikhoan, "Chitietnguoidung", new { id = item.MaKH })
+            </td>
+
+        </tr>
     }
 </table>
 <div class="Trang">

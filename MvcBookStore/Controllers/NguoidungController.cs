@@ -70,7 +70,8 @@ namespace MvcBookStore.Controllers
             else
             {
                 dbQLBansachDataContext db = new dbQLBansachDataContext();
-                //Gan gia tri cho doi tuong duoc tao moi (kh)
+                //Gan gia tri cho doi tuong duoc tao moi hhaaashhhshhs
+                
                 kh.HoTen = hoten;
                 kh.Taikhoan = tendn;
                 kh.Matkhau = matkhau;
