@@ -20,9 +20,9 @@ namespace MvcBookStore.Models
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QLBANSACH")]
+    using System.Web;
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QLBANSACH")]
 	public partial class dbQLBansachDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -722,8 +722,10 @@ namespace MvcBookStore.Models
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Masach;
-		
-		private string _Tensach;
+
+		private HttpPostedFileBase UploadImage;
+
+        private string _Tensach;
 		
 		private System.Nullable<decimal> _Giaban;
 		

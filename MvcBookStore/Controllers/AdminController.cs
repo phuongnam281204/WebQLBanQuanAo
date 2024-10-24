@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using PagedList;
 using PagedList.Mvc;
 using System.IO;
+using System.Net;
 
 namespace MvcBookStore.Controllers
 {
@@ -161,63 +162,79 @@ namespace MvcBookStore.Controllers
         }
         //Sua san pham
         [HttpGet]
-        public ActionResult Suasach(int id)
+        public ActionResult Suasach(int? id)  // Thêm nullable
         {
-            //Lay ra doi tuong sach can xoa theo ma
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             SACH sach = db.SACHes.SingleOrDefault(n => n.Masach == id);
             if (sach == null)
             {
-                Response.StatusCode = 404;
-                return null;
+                return HttpNotFound();
             }
-            //Lay ds tu table LOAI, sap xep theo ten loai, cho lay gia tri Ma Loai, hien thi Tenloai
-            ViewBag.MaLoai = new SelectList(db.Loais.ToList().OrderBy(n => n.TenLoai), "MaLoai", "TenLoai");
-            ViewBag.MaNXB = new SelectList(db.NHAXUATBANs.ToList().OrderBy(n => n.TenNXB), "MaNXB", "TenNXB");
+
+            // Thêm selected value cho dropdown
+            ViewBag.MaLoai = new SelectList(db.Loais.ToList().OrderBy(n => n.TenLoai), "MaLoai", "TenLoai", sach.MaLoai);
+            ViewBag.MaNXB = new SelectList(db.NHAXUATBANs.ToList().OrderBy(n => n.TenNXB), "MaNXB", "TenNXB", sach.MaNXB);
+
             return View(sach);
         }
         [HttpPost]
-        [ValidateInput(false)]
         public ActionResult Suasach(SACH sach, HttpPostedFileBase fileupload)
         {
             if (Session["Taikhoanadmin"] == null)
             {
                 return RedirectToAction("Login", "Admin");
             }
+
             //Dua du lieu vao dropdownload
-            ViewBag.MaLoai = new SelectList(db.Loais.ToList().OrderBy(n => n.TenLoai), "MaLoai", "TenLoai");
-            ViewBag.MaNXB = new SelectList(db.NHAXUATBANs.ToList().OrderBy(n => n.TenNXB), "MaNXB", "TenNXB");
-            //Kiem tra duong dan file
-            if (fileupload == null)
+            ViewBag.MaLoai = new SelectList(db.Loais.ToList().OrderBy(n => n.TenLoai), "MaLoai", "TenLoai", sach.MaLoai);
+            ViewBag.MaNXB = new SelectList(db.NHAXUATBANs.ToList().OrderBy(n => n.TenNXB), "MaNXB", "TenNXB", sach.MaNXB);
+
+            if (ModelState.IsValid)
             {
-                ViewBag.Thongbao = "Vui lòng chọn ảnh nền!";
-                return View();
-            }
-            //Them vao CSDL
-            else
-            {
-                if (ModelState.IsValid)
+                // Lấy sách hiện tại từ database
+                var sachUpdate = db.SACHes.SingleOrDefault(n => n.Masach == sach.Masach);
+                if (sachUpdate == null)
                 {
-                    //Luu ten file, luu y bo sung thu vien
+                    return HttpNotFound();
+                }
+
+                // Cập nhật các thông tin cơ bản
+                sachUpdate.Tensach = sach.Tensach;
+                sachUpdate.Giaban = sach.Giaban;
+                sachUpdate.Soluongton = sach.Soluongton;
+                sachUpdate.MaLoai = sach.MaLoai;
+                sachUpdate.MaNXB = sach.MaNXB;
+
+                // Xử lý upload file
+                if (fileupload != null && fileupload.ContentLength > 0)
+                {
                     var fileName = Path.GetFileName(fileupload.FileName);
-                    //Luu duong dan cua file
-                    var path = Path.Combine(Server.MapPath("~/images/anhsp/"), fileName);
-                    //Kiem tra anh da ton tai hay chua
-                    if (System.IO.File.Exists(path))
-                    {
-                        ViewBag.Thongbao = "Hình ảnh đã tồn tại tên tương tự! Vui lòng đặt tên khác!";
-                    }
-                    else
-                    {
-                        //Luu hinh anh vao duong dan
-                        fileupload.SaveAs(path);
-                    }
-                    sach.Anhbia = fileName;
-                    //Luu vao CSDL
-                    UpdateModel(sach);
+                    var path = Path.Combine(Server.MapPath("~/images/anhsp"), fileName);
+
+
+                    // Lưu file mới
+                    fileupload.SaveAs(path);
+                    sachUpdate.Anhbia = fileName;
+                }
+
+                try
+                {
                     db.SubmitChanges();
+                    return RedirectToAction("Sach");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "Có lỗi xảy ra khi cập nhật: " + ex.Message;
+                    return View(sach);
                 }
             }
-            return RedirectToAction("Sach");
+
+            // Nếu ModelState không hợp lệ
+            return View(sach);
         }
 
         public ActionResult DonHang(int? page)
