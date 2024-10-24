@@ -22,6 +22,64 @@
     <link href="~/Content/css.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/responsive.css">
 </head>
+<style>
+    /* Slideshow container */
+    .slideshow-container {
+        max-width: fit-content; /* Adjust the width as needed */
+        justify-content: center; /* Căn giữa theo chiều ngang */
+        align-items: center; /* Căn giữa theo chiều dọc */
+        height: 500px;
+        position: relative;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    /* Number text (1/3 etc) */
+
+
+    /* The dots/bullets/indicators */
+    .dot {
+        height: 10px;
+        width: 10px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+
+    .active {
+        background-color: #717171;
+    }
+
+    /* Fading animation */
+    .fade {
+        animation-name: fade;
+        animation-duration: 1.5s;
+        animation: fade 3s ease-in-out;
+    }
+
+    @@keyframes fade {
+        0% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+    /* On smaller screens, decrease text size */
+    @@media only screen and (max-width: 300px) {
+        .text {
+            font-size: 11px
+        }
+    }
+</style>
 <body>
     <!-- Preloader -->
     <div class="preloader">
@@ -84,7 +142,7 @@
                     <div class="col-lg-2 col-md-2 col-12">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="@Url.Action("Index","BookStore")"><img src="~/images/anhsp/logoquanao.png" alt="logo"></a>
+                            <a href="@Url.Action("Index","BookStore")"><img src="~/images/LOGOO.png" alt="logo"></a>
                         </div>
                         <!--/ End Logo -->
                         <!-- Search Form -->
@@ -173,37 +231,59 @@
         <!--/ End Header Inner -->
     </header>
     <!--/ End Header -->
-    <!-- Slider Area -->
-    <section class="hero-slider text-right">
-        <!-- Single Slider -->
-        <style>
-            .hero-slider .banner-slider {
-                background-image: url('../../images/4069490.jpg');
-                background-size: contain;
-                background-position: center center;
-                background-repeat: no-repeat;
-            }
-        </style>
+ 
+        <!-- Slider Area -->
+        <div class="slideshow-container">
 
-        <div class="hero-slider banner-slider">
-            <div class="container">
-                <div class="row no-gutters">
-                    <div class="col-12">
-                        <div class="text-inner">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="hero-text">
-                                        <div class="button">
-                                            <a href="#" class="btn">Xem Thêm</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="mySlides fade">
+                <img src="~/images/banner 1.png" style="width:100%">
+            </div>
+
+            <div class="mySlides fade">
+                <img src="~/images/banner 2.png" style="width:100%">
+            </div>
+
+            <div class="mySlides fade">
+                <img src="~/images/banner 3.png" style="width:100%">
+            </div>
+
+            <div class="mySlides fade">
+                <img src="~/images/banner 44.png" style="width:100%">
             </div>
         </div>
+        <br>
+
+        <div style="text-align:center">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+
+        </div>
+        <!-- javascript chuyển ảnh-->
+
+        <script>
+            let slideIndex = 0;
+            showSlides();
+
+            function showSlides() {
+                let i;
+                let slides = document.getElementsByClassName("mySlides");
+                let dots = document.getElementsByClassName("dot");
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                slideIndex++;
+                if (slideIndex > slides.length) { slideIndex = 1 }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace("active", "");
+                }
+                slides[slideIndex - 1].style.display = "block";
+                dots[slideIndex - 1].className += " active";
+                setTimeout(showSlides, 1500); // Change image every 2 seconds
+            }
+        </script>
+        <!--/ End Slider Area -->
         <!--/ End Single Slider -->
     </section>
     <!--/ End Slider Area -->
@@ -289,7 +369,7 @@
                         <!-- Single Widget -->
                         <div class="single-footer about">
                             <div class="logo">
-                                <a href="@Url.Action("Index","BookStore")"><img src="~/images/anhsp/logoquanao.png" alt="#"></a>
+                                <a href="@Url.Action("Index","BookStore")"><img src="~/images/LOGOO.png" alt="#"></a>
                             </div>
                             <p class="text">Website bán quần áo trực tuyến của Buma Store, hỗ trợ 24/7 cùng nhiều ưu đẫi hấp dẫn. Luôn luôn cập nhật mới nhiều loại quần áo.</p>
                             <p class="text">Cần hỗ trợ liên hệ với chúng tôi: <span><a href="tel:190 063 6467">190 063 6467</a></span></p>
