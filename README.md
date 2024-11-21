@@ -9,3 +9,4 @@
 - Report Sprint 2 :[Report Sprint 2.docx](https://github.com/user-attachments/files/17517742/Report.Sprint.2.docx)
 - Product BackLog sprint 3 : [QLbanquanao.xlsx](https://github.com/user-attachments/files/17848087/QLbanquanao.xlsx)
 - Report Sprint 3 :[Report Sprint 3.docx](https://github.com/user-attachments/files/17848097/Report.Sprint.3.docx)
+- Testcase Sprint 3 :[TesecaseSprint3.docx](https://github.com/user-attachments/files/17848397/TesecaseSprint3.docx)
